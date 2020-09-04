@@ -1,0 +1,33 @@
+version: '3.3'
+services:
+  lexproxy:
+      build: lex-proxy/
+      networks:
+        - project-network
+      ports:
+        - "5001:5000"
+      restart: always
+      environment:
+        BOT_NAME: ""
+        BOT_ALIAS: ""
+        REGION_NAME: ""
+        AWS_ACCESS_KEY_ID: ""
+        AWS_SECRET_ACCESS_KEY: ""
+        AWS_DEFAULT_REGION: ""
+  lexfrontend:
+      build: lex-frontend/
+      networks:
+        - project-network
+      ports:
+        - "5000:5000"
+      restart: always
+      environment:
+        LEX_PROXY_URL: http://lexproxy:5000
+        USER_POOL_ID: ""
+        APP_CLIENT_ID: ""
+        AWS_ACCESS_KEY_ID: ""
+        AWS_SECRET_ACCESS_KEY: ""
+        AWS_DEFAULT_REGION: ""
+networks:
+  project-network:
+    driver: bridge
