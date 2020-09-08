@@ -12,10 +12,6 @@ app = Flask(__name__)
 @app.route('/send_message', methods=['POST'])
 def send_message():
     data = request.get_json()
-    # TODO: Maybe get from cognito ID
-    # user_id = "lucasduarteteste"
-    # # TODO: Get it from API
-    # text = "Olá"
     user_id = data["user_id"]
     text = data["text"]
 
